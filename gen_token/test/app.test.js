@@ -19,6 +19,7 @@ describe('Simple unsecured token endpoint', function() {
         expect(err).to.not.be.ok;
         expect(res).to.have.property('status', 200);
         expect(res.text).to.be.a('string');
+        expect(res.text).to.contain('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhY2NvdW50c');
         done();
       });
     });

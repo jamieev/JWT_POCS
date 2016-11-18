@@ -37,3 +37,13 @@ app.get('/', passport.authenticate('jwt', { session: false}),function(req,res) {
 
 app.listen('3000');
 console.log('Listening on port 3000');
+
+//start/stop server
+var server;
+var start = exports.start = function start(port, callback) {
+  server = app.listen(port, callback);
+};
+
+var stop = exports.stop = function stop(callback) {
+  server.close(callback)
+};
