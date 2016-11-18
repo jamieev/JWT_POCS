@@ -18,9 +18,27 @@ var jwt = require('jsonwebtoken');
 
 app.get('/token', function(req,res) {
   if(!req.query.client_id || !req.query.client_secret) {
-    res.send(400, 'include both client_id and client_secret in query string')
+    res.status(400).send('include both client_id and client_secret in query string')
   }
+
   res.send(jwt.sign({ iss: 'accounts.examplesoft.com', aud: 'yoursite.net', client_id: req.query.client_id }, req.query.client_secret));
 });
+
+app.get('/hello', function(req,res) {
+  res.status(200).send('Hello World');
+});
+
+
+
 app.listen(3001);
 console.log('listening on port 3001');
+
+//start/stop server
+var server;
+var start = exports.start = function start(port, callback) {
+  server = app.listen(port, callback);
+};
+
+var stop = exports.stop = function stop(callback) {
+  server.close(callback)
+};
