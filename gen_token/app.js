@@ -16,18 +16,13 @@ var jwt = require('jsonwebtoken');
 //   console.log(token);
 // });
 
-app.get('/token', function(req,res) {
+app.post('/token', function(req,res,err) {
   if(!req.query.client_id || !req.query.client_secret) {
-    res.status(400).send('include both client_id and client_secret in query string')
+    res.status(400).send('include both client_id and client_secret in query string');
+  } else {
+    res.send(jwt.sign({ iss: 'accounts.examplesoft.com', aud: 'yoursite.net', client_id: req.query.client_id }, req.query.client_secret));
   }
-
-  res.send(jwt.sign({ iss: 'accounts.examplesoft.com', aud: 'yoursite.net', client_id: req.query.client_id }, req.query.client_secret));
 });
-
-app.get('/hello', function(req,res) {
-  res.status(200).send('Hello World');
-});
-
 
 
 app.listen(3001);

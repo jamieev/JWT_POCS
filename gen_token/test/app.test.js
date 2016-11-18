@@ -13,23 +13,22 @@ describe('Simple unsecured token endpoint', function() {
     myapp.stop(done);
   });
 
-  describe.only('when requested at /token with client_id and client_secret', function() {
+  describe('when requested at /token with client_id and client_secret', function() {
     it('should return a token', function(done) {
-      request.get(baseUrl + '/token').end(function assert(err, res) {
+      request.post(baseUrl + '/token').query({client_id:'client1'}).query({client_secret: 'secret'}).end(function assert(err, res) {
         expect(err).to.not.be.ok;
         expect(res).to.have.property('status', 200);
-        expect(res.text).to.equal('Hello World');
+        expect(res.text).to.be.a('string');
         done();
       });
     });
   });
 
-  describe('when requested at /hello', function() {
-    it('should say hello', function(done) {
-      request.get(baseUrl + '/hello?client_id=client001&client_secret=secret').end(function assert(err, res) {
-        expect(err).to.not.be.ok;
-        expect(res).to.have.property('status', 200);
-        expect(res.text).to.equal('Hello World');
+  describe('when requested at /token without client_id and client_secret', function() {
+    it('should return 400', function(done) {
+      request.post(baseUrl + '/token').end(function assert(err, res) {
+         expect(res).to.have.property('status', 400);
+         expect(res.text).to.equal('include both client_id and client_secret in query string');
         done();
       });
     });
