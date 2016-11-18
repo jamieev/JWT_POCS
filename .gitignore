@@ -45,6 +45,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-gen_token/node_modules
-protected_resource/node_modules
-
+node_modules

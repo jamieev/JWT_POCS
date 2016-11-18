@@ -34,4 +34,14 @@ describe('Simple unsecured token endpoint', function() {
       });
     });
   });
+
+  describe('when requested at / without a valid auth token', function() {
+    it('should return unauthorized', function(done) {
+      request.get(baseUrl + '/').end(function assert(err, res) {
+        expect(res).to.have.property('status', 401);
+        done();
+      });
+    });
+  });
+
 });
