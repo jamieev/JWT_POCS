@@ -3,9 +3,9 @@ var app = express(),
 bodyParser = require('body-parser'),
 oauthserver = require('node-oauth2-server');
 var memorystore = require('./model.js');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());
 app.oauth = oauthserver({
   model: memorystore,
   grants: ['client_credentials'],
